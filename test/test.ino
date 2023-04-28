@@ -5,6 +5,7 @@
 #include <M5StickC.h>
 #include "laser.hpp"
 #include "timer.hpp"
+#include "move.hpp"
 
 LowPass lowPass1;
 LowPass lowPass2;
@@ -24,6 +25,7 @@ void setup()
     M5.MPU6886.Init();
     xTaskCreatePinnedToCore(BtnA_Task, "BtnA_Task", 2048, NULL, 1, NULL, 1);
     xTaskCreatePinnedToCore(laserTask, "laserTask", 1024, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(moveTask, "moverTask", 2048, NULL, 1, NULL, 1);
 }
 void loop()
 {

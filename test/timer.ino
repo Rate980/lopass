@@ -74,8 +74,8 @@ void BtnA_Task(void *args)
             }
         }
         // BtnAStateOld = BtnAState;
+        delay(10);
     }
-    delay(10);
 }
 int getSeconds()
 {
