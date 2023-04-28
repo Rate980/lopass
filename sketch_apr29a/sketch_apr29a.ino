@@ -90,6 +90,10 @@ class MyServerCallbacks : public BLEServerCallbacks
 
 void setup()
 { 
+  Serial.begin(115200);             // シリアル通信の準備をする
+  while (!Serial);                  // 準備が終わるのを待つ
+  Serial.println("プログラム開始");    // シリアル通信でメッセージをPCに送信
+
   // Initialize the M5StickC object
   M5.begin();
   pinMode(BTN_A_PIN,  INPUT_PULLUP);
@@ -167,7 +171,7 @@ void loop()
         break;
       default:
         ;
-      }
+    }
 
 
     dataBufferX.write(accX_mpss);
@@ -204,29 +208,29 @@ void loop()
         delay(1000);
       } else if(accZ_mpss > 7 or -8 > accZ_mpss){
       
-      if(accZ_mpss > 0){
-        resolt = 0b00010101;
-        Serial.println("left");
-        delay(5000);
-      } else {
-        resolt = 0b00000000;
-        Serial.println("right");
-        delay(5000);
-      }
-
-      while(true){
-        M5.MPU6886.getAccelData(&accX_g,&accY_g,&accZ_g);
-        accX_mpss = accX_g * 9.8;
-        accZ_mpss = accZ_g * 9.8;
-        dataBufferX.write(accX_mpss);
-        dataBufferZ.write(accZ_mpss);
-        if((accX_mpss < 5 and -6 < accX_mpss) or (accZ_mpss < 5 and -6 < accZ_mpss)){
-          break;
+        if(accZ_mpss > 0){
+          resolt = 0b00010101;
+          Serial.println("left");
+          delay(5000);
+        } else {
+          resolt = 0b00000000;
+          Serial.println("right");
+          delay(5000);
         }
-        delay(1);
+
+        while(true){
+          M5.MPU6886.getAccelData(&accX_g,&accY_g,&accZ_g);
+          accX_mpss = accX_g * 9.8;
+          accZ_mpss = accZ_g * 9.8;
+          dataBufferX.write(accX_mpss);
+          dataBufferZ.write(accZ_mpss);
+          if((accX_mpss < 5 and -6 < accX_mpss) or (accZ_mpss < 5 and -6 < accZ_mpss)){
+            break;
+          }
+          delay(1);
+        }
+        delay(1000);
       }
-      delay(1000);
-    }
     }
 
     
