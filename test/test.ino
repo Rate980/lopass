@@ -21,6 +21,7 @@ void setup()
     pinMode(IN2, INPUT);
     pinMode(LASER, OUTPUT);
     // digitalWrite(LASER, HIGH);
+    M5.MPU6886.Init();
     xTaskCreatePinnedToCore(BtnA_Task, "BtnA_Task", 2048, NULL, 1, NULL, 1);
     xTaskCreatePinnedToCore(laserTask, "laserTask", 1024, NULL, 1, NULL, 1);
 }
