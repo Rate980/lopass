@@ -4,12 +4,12 @@ LowPass::LowPass()
 {
 }
 
-bool LowPass::get()
+int LowPass::get()
 {
     return this->state;
 }
 
-void LowPass::push(bool raw_state)
+void LowPass::push(int raw_state)
 {
     if (raw_state != prev_raw_state)
     {

@@ -3,16 +3,17 @@
 // #ifndef THRESHOLD
 #define THRESHOLD 10
 // #endif
+#include <Arduino.h>
 class LowPass
 {
 public:
     LowPass();
-    bool get();
-    void push(bool raw_state);
+    int get();
+    void push(int raw_state);
 
 private:
-    bool state = false;
-    bool prev_raw_state = false;
+    int state = LOW;
+    int prev_raw_state = LOW;
     int counter = 0;
 };
 
